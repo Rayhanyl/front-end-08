@@ -42,6 +42,13 @@ function NavBar(props) {
     }
     return navigate("/#faq");
   };
+  const linkHome = () => {
+    if (isAuthenticated) {
+      dispatch(whoami());
+      return navigate("/");
+    }
+    return navigate("/#faq");
+  };
   const alertLogout = async () => {
     handleLogout();
   };
@@ -58,7 +65,9 @@ function NavBar(props) {
         fixed="top"
       >
         <Container>
-          <Navbar.Brand href="#">Binar Car Rental</Navbar.Brand>
+          <Navbar.Brand href="#" onClick={linkHome}>
+            Binar Car Rental
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto">
@@ -82,7 +91,7 @@ function NavBar(props) {
               <Nav.Link href="/#faq" onClick={linkFaq} className="mx-3">
                 FAQ
               </Nav.Link>
-              {!user ? (
+              {!window.localStorage.getItem("token") ? (
                 <Button
                   variant="success"
                   className="mx-3"
